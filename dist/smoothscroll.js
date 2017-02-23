@@ -253,8 +253,22 @@
 
       // LET THE SMOOTHNESS BEGIN!
       var scrollableParent = findScrollableParent(this);
-      var parentRects = scrollableParent.getBoundingClientRect();
-      var clientRects = this.getBoundingClientRect();
+      var nullRect = {
+        'bottom': 0,
+        'height': 0,
+        'left': 0,
+        'right': 0,
+        'top': 0,
+        'width': 0
+      };
+      var parentRects = nullRect;
+      if (!!scrollableParent.parentElement) {
+        parentRects = scrollableParent.getBoundingClientRect();
+      }
+      var clientRects = nullRect;
+      if (!!this.parentElement) {
+        clientRects = this.getBoundingClientRect();
+      }
 
       if (scrollableParent !== d.body) {
         // reveal element inside parent
